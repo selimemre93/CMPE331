@@ -32,10 +32,8 @@ public class MyFrame extends JFrame {
 	private JPanel cancelationPanel=new JPanel();
 	private JPanel shuttlesPanel=new JPanel();
 
-
-	private JButton back2Button = new JButton("Back");
-
 	//*****Selling Panel*****
+
 	private String [] departurePoints={"Istanbul","Ankara","Izmir"};
 	String [] arrivalPoints={"Istanbul","Ankara","Izmir"};
 	String [] numofSeat={"1","2","3","4","5","6","7","8","9","10"};
@@ -51,9 +49,10 @@ public class MyFrame extends JFrame {
 	JRadioButton r2=new JRadioButton("15:00");
 	JRadioButton r3=new JRadioButton("20:00");
 	private ButtonGroup group=new ButtonGroup();
+	private JButton back2Button = new JButton("Back");
 
-	//*****Selling Panel*****
-	private JTextArea textpanel = new JTextArea(6,30);
+	//*****Inside Panel*(in the Search Panel)****
+	private JTextArea textpanel = new JTextArea(5,30);
 	private JComboBox numofSeats=new JComboBox(numofSeat);
 	private JButton buyButton = new JButton("BUY");
 
@@ -67,35 +66,31 @@ public class MyFrame extends JFrame {
 	private JTextArea shuttleTextArea = new JTextArea(6,35);
 	private JButton back3Button = new JButton("Back");
 
+
 	public MyFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		setSize(406, 320);
+		setSize(406, 330);
 		setLocationRelativeTo(null);
 		setTitle("Bus Company");
 		setLayout(new BorderLayout());
 
 		//*****Main Panel*****
-
 		JButton sellingButton=new JButton("Ticket Selling");
 		sellingButton.setPreferredSize(new Dimension(200, 40));
 		JButton cancelationButton=new JButton("Ticket Cancelation");
 		cancelationButton.setPreferredSize(new Dimension(200, 40));
 		JButton infoShuttleButton=new JButton("Information about Shuttles");
 		infoShuttleButton.setPreferredSize(new Dimension(200, 40));
-
 		mainPanel.setLayout(new FlowLayout(FlowLayout.CENTER,80,25));
-
 		mainPanel.add(sellingButton);
 		mainPanel.add(cancelationButton);
 		mainPanel.add(infoShuttleButton);
-
 		mainPanel.setVisible(true);
 		add(mainPanel,BorderLayout.CENTER);
 
 
 		//*****Ticket Selling Panel*****
-
 
 		String [] days={"01","02","03","04","05","06","07","08","09","10","11","12","13","14","15",
 				"16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
@@ -106,59 +101,50 @@ public class MyFrame extends JFrame {
 		JComboBox monthsBox=new JComboBox(months);
 		JComboBox yearsBox=new JComboBox(years);
 		JButton searchButton = new JButton("Search");
-		JRadioButton roundRButton = new JRadioButton("Round Trip");
-		JRadioButton onewayRButton = new JRadioButton("One Way");
-		ButtonGroup bg=new ButtonGroup();
-		bg.add(onewayRButton);
+		//		JRadioButton roundRButton = new JRadioButton("Round Trip");
+		//		JRadioButton onewayRButton = new JRadioButton("One Way");
+		//		ButtonGroup bg=new ButtonGroup();
+		//		bg.add(onewayRButton);
 		//		bg.add(roundRButton);
 		JTextField onewayDate=new JTextField(5);
-		JTextField roundtripDate=new JTextField(5);
-
-		sellingButton.addActionListener(new sellingTicketListener());
-		backButton.addActionListener(new backButtonListener());
-
+		//		JTextField roundtripDate=new JTextField(5);
 		sellingPanel.setLayout (new FlowLayout(FlowLayout.LEFT,20,20));
-
-
 		sellingPanel.add(new JLabel("From"));
 		sellingPanel.add(departureBox);
 		sellingPanel.add(new JLabel("to"));
 		sellingPanel.add(arrivalBox);
-		sellingPanel.add(new JLabel(""));
-
-		sellingPanel.add(onewayRButton);
-		onewayRButton.setSelected(true);
-
-
+		sellingPanel.add(new JLabel("                           "));
+		//		sellingPanel.add(onewayRButton);
+		//		onewayRButton.setSelected(true);
 		sellingPanel.add(new JLabel("Dept. Date"));
-
 		sellingPanel.add(daysBox);
 		sellingPanel.add(monthsBox);
 		sellingPanel.add(yearsBox);
-
+		sellingPanel.add(new JLabel("                           "));
 		sellingPanel.add(searchButton);
 		sellingPanel.add(backButton, BorderLayout.SOUTH);
 		sellingPanel.setBorder(new TitledBorder("Ticket Selling"));
 		sellingPanel.setVisible(false);
 		add(sellingPanel,BorderLayout.CENTER);
 
+		sellingButton.addActionListener(new sellingTicketListener());
+		backButton.addActionListener(new backButtonListener());
 
 		//******Search Panel******
 		group.add(r1);
 		group.add(r2);
 		group.add(r3);
-
-
+		searchPanel.setBorder(new TitledBorder("Search Panel"));
 		searchPanel.setLayout(new FlowLayout(FlowLayout.CENTER,25,20));
 		searchPanel.add(new JLabel("Full Name"));
 		searchPanel.add(nameText);
 		searchPanel.add(new JLabel("Phone Number"));
 		searchPanel.add(phoneText);
-
 		JPanel insidePanel = new JPanel();
 		insidePanel.setLayout(new GridLayout(1,3));
 		insidePanel.setBorder(new TitledBorder("Hours & NumberofSeat"));
 		searchPanel.add(insidePanel);
+		r1.setSelected(true);
 		insidePanel.add(r1);
 		insidePanel.add(r2);
 		insidePanel.add(r3);
@@ -167,7 +153,6 @@ public class MyFrame extends JFrame {
 		searchPanel.add(textpanel);
 		searchPanel.add(back2Button);
 		searchPanel.add(buyButton);
-
 		searchPanel.setVisible(false);
 
 		back2Button.addActionListener(new back2ButtonListener());
@@ -187,16 +172,30 @@ public class MyFrame extends JFrame {
 		cancelationButton.addActionListener(new cancelationButtonListener());
 		backButton4.addActionListener(new back4ButtonListener());
 		cancelButton.addActionListener(new cancelButtonListener());
+
 		//*****Shuttles Panel*******
-
-
 		shuttlesPanel.add(new JLabel("Shuttle Information"));
 		shuttlesPanel.add(shuttleTextArea);
 		shuttlesPanel.add(back3Button);
 		shuttlesPanel.setVisible(false);
+
 		infoShuttleButton.addActionListener(new shuttleButtonListener());
 		back3Button.addActionListener(new back3ButtonListener());
+
 	}
+
+
+	//*****Button Listeners*****
+
+	public class sellingTicketListener implements ActionListener{
+		public void actionPerformed (ActionEvent e){
+			add(sellingPanel);
+			mainPanel.setVisible(false);
+			sellingPanel.setVisible(true);
+
+		}
+	}
+
 	public class cancelationButtonListener implements ActionListener{
 		public void actionPerformed (ActionEvent e){
 			add(cancelationPanel);
@@ -204,21 +203,6 @@ public class MyFrame extends JFrame {
 			cancelationPanel.setVisible(true);
 		}
 	}
-
-	public class back4ButtonListener implements ActionListener{
-		public void actionPerformed (ActionEvent e){
-			cancelationPanel.setVisible(false);
-			mainPanel.setVisible(true);
-		}
-	}
-
-	public class back3ButtonListener implements ActionListener{
-		public void actionPerformed (ActionEvent e){
-			shuttlesPanel.setVisible(false);
-			mainPanel.setVisible(true);
-		}
-	}
-
 
 	public class shuttleButtonListener implements ActionListener{
 		public void actionPerformed (ActionEvent e){
@@ -246,98 +230,14 @@ public class MyFrame extends JFrame {
 		}
 	}
 
-
-	public class buyButtonListener implements ActionListener{
-		public void actionPerformed (ActionEvent e){
-
-			String name = nameText.getText();
-			String phoneNumber = phoneText.getText();
-			String arrivaltext=arrivalBox.getSelectedItem().toString();
-			String departuretext=departureBox.getSelectedItem().toString();
-
-			String result="";
-			String [] line = {}; 
-			File f=new File("Bus.txt");
-			Scanner sf;
-			int Totalfee=0;
-			boolean empty = true;
-			try {
-
-				sf = new Scanner(f);
-				while(sf.hasNextLine()){
-
-					String x=sf.nextLine();
-					line=x.split("\t");
-
-					if(departuretext.equals(line[0]) && arrivaltext.equals(line[1]) && line[2].equals(r1.getText()) && r1.isSelected()){
-
-						int Seats = Integer.parseInt(line[3]);
-						Totalfee = Integer.parseInt((String) numofSeats.getSelectedItem()) * Integer.parseInt(line[4]);
-
-						if(Seats>=Integer.parseInt((String) numofSeats.getSelectedItem())){
-							Seats-=Integer.parseInt((String) numofSeats.getSelectedItem());
-							line[3]=Integer.toString(Seats);
-						}
-						else{
-							JOptionPane.showMessageDialog(null,"Not enough empty seats");
-							empty=false;
-						}
-					}
-					if(departuretext.equals(line[0]) && arrivaltext.equals(line[1]) && line[2].equals(r2.getText()) && r2.isSelected()){
-
-						int Seats = Integer.parseInt(line[3]);
-						Totalfee = Integer.parseInt((String) numofSeats.getSelectedItem()) * Integer.parseInt(line[4]);
-
-						if(Seats>=Integer.parseInt((String) numofSeats.getSelectedItem())){
-							Seats-=Integer.parseInt((String) numofSeats.getSelectedItem());
-							line[3]=Integer.toString(Seats);
-						}
-						else{
-							JOptionPane.showMessageDialog(null,"Not enough empty seats");
-							empty=false;
-						}
-					}
-					if(departuretext.equals(line[0]) && arrivaltext.equals(line[1]) && line[2].equals(r3.getText()) && r3.isSelected()){
-
-						int Seats = Integer.parseInt(line[3]);
-						Totalfee = Integer.parseInt((String) numofSeats.getSelectedItem()) * Integer.parseInt(line[4]);
-						if(Seats>=Integer.parseInt((String) numofSeats.getSelectedItem())){
-							Seats-=Integer.parseInt((String) numofSeats.getSelectedItem());
-							line[3]=Integer.toString(Seats);
-						}
-						else{
-							JOptionPane.showMessageDialog(null,"Not enough empty seats");
-							empty=false;
-						}
-					}
-					result += line[0]+"\t"+line[1]+"\t"+line[2]+"\t"+line[3]+"\t"+line[4]+"\n";
-				}
-				FileWriter fw2=new FileWriter(f);
-				PrintWriter pw2=new PrintWriter(fw2);
-				pw2.write(result);
-				pw2.close();
-
-				if(!(nameText.getText().isEmpty()) && !(phoneText.getText().isEmpty()) && empty){
-					Random r=new Random();
-					int tID=1+r.nextInt(1000000);				
-					Customer cm1 =new Customer(name,phoneNumber,tID);
-					cm1.writeTickets(name, phoneNumber, tID, departuretext, arrivaltext, r1.getText(),Totalfee);
-				}
-			}
-			catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-	}
-
-	public class backButtonListener implements ActionListener{
+	public class backButtonListener implements ActionListener{//for sellingPanel
 		public void actionPerformed (ActionEvent e){
 			sellingPanel.setVisible(false);
 			mainPanel.setVisible(true);
 		}
 	}
-	public class back2ButtonListener implements ActionListener{
+
+	public class back2ButtonListener implements ActionListener{//for insidePanel
 		public void actionPerformed (ActionEvent e){
 			mainPanel.setVisible(false);
 			sellingPanel.setVisible(true);
@@ -345,59 +245,19 @@ public class MyFrame extends JFrame {
 		}
 	}
 
-	public class sellingTicketListener implements ActionListener{
+	public class back3ButtonListener implements ActionListener{//for shuttleinfoPanel
 		public void actionPerformed (ActionEvent e){
-			mainPanel.setVisible(false);
-			sellingPanel.setVisible(true);
-
+			shuttlesPanel.setVisible(false);
+			mainPanel.setVisible(true);
 		}
 	}
 
-	public class cancelButtonListener implements ActionListener{
+	public class back4ButtonListener implements ActionListener{//for cancelationPanel
 		public void actionPerformed (ActionEvent e){
-
-			File f=new File("Tickets.txt");
-			String result="";
-			try {
-				Scanner sd = new Scanner(f);
-				String x="";
-				while(sd.hasNextLine()){
-
-					x=sd.nextLine();
-					String [] line = x.split("\t");
-
-					if(!(ticketID.getText().isEmpty()) && ticketID.getText().equals(line[2])){
-						JOptionPane.showMessageDialog(null, "Cancellation is success ");
-						continue;
-					}
-					else{
-						JOptionPane.showMessageDialog(null,"TicketID could not found!");
-
-					}
-
-					result+=x+"\n";	
-				}
-
-				FileWriter fw2;
-				try {
-					fw2 = new FileWriter(f);
-					PrintWriter pw2=new PrintWriter(fw2);
-					pw2.write(result);
-					pw2.close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
+			cancelationPanel.setVisible(false);
+			mainPanel.setVisible(true);
 		}
 	}
-
-
 
 	public class searchButtonListener implements ActionListener{
 		public void actionPerformed (ActionEvent e){
@@ -432,6 +292,142 @@ public class MyFrame extends JFrame {
 					e1.printStackTrace();
 				}
 			}				
+		}
+	}
+
+	public class buyButtonListener implements ActionListener{
+		public void actionPerformed (ActionEvent e){
+
+			String name = nameText.getText();
+			String phoneNumber = phoneText.getText();
+			String arrivaltext=arrivalBox.getSelectedItem().toString();
+			String departuretext=departureBox.getSelectedItem().toString();
+			String result="";
+			String [] line = {}; 
+			File f=new File("Bus.txt");
+			Scanner sf;
+			int Totalfee=0;
+			boolean emptySeats = true;
+			try {
+				sf = new Scanner(f);
+				while(sf.hasNextLine()){
+
+					String x=sf.nextLine();
+					line=x.split("\t");
+
+					if(departuretext.equals(line[0]) && arrivaltext.equals(line[1]) &&
+							line[2].equals(r1.getText()) && r1.isSelected()){
+
+						int Seats = Integer.parseInt(line[3]);
+						Totalfee = Integer.parseInt((String) numofSeats.getSelectedItem()) * Integer.parseInt(line[4]);
+
+						if(Seats>=Integer.parseInt((String) numofSeats.getSelectedItem())){
+							Seats-=Integer.parseInt((String) numofSeats.getSelectedItem());
+							line[3]=Integer.toString(Seats);
+						}
+						else{
+							JOptionPane.showMessageDialog(null,"Not enough empty seats");
+							emptySeats=false;
+						}
+					}
+					else if(departuretext.equals(line[0]) && arrivaltext.equals(line[1]) &&
+							line[2].equals(r2.getText()) && r2.isSelected()){
+
+						int Seats = Integer.parseInt(line[3]);
+						Totalfee = Integer.parseInt((String) numofSeats.getSelectedItem()) * Integer.parseInt(line[4]);
+
+						if(Seats>=Integer.parseInt((String) numofSeats.getSelectedItem())){
+							Seats-=Integer.parseInt((String) numofSeats.getSelectedItem());
+							line[3]=Integer.toString(Seats);
+						}
+						else{
+							JOptionPane.showMessageDialog(null,"Not enough empty seats");
+							emptySeats=false;
+						}
+					}
+					else if(departuretext.equals(line[0]) && arrivaltext.equals(line[1]) &&
+							line[2].equals(r3.getText()) && r3.isSelected()){
+
+						int Seats = Integer.parseInt(line[3]);
+						Totalfee = Integer.parseInt((String) numofSeats.getSelectedItem()) * Integer.parseInt(line[4]);
+						if(Seats>=Integer.parseInt((String) numofSeats.getSelectedItem())){
+							Seats-=Integer.parseInt((String) numofSeats.getSelectedItem());
+							line[3]=Integer.toString(Seats);
+						}
+						else{
+							JOptionPane.showMessageDialog(null,"Not enough empty seats");
+							emptySeats=false;
+						}
+					}
+					result += line[0]+"\t"+line[1]+"\t"+line[2]+"\t"+line[3]+"\t"+line[4]+"\n";
+				}
+
+				if(name.isEmpty() || phoneNumber.isEmpty()){
+					JOptionPane.showMessageDialog(null, "Fill the Name and Phone Number");
+				}
+
+				FileWriter fw2=new FileWriter(f);
+				PrintWriter pw2=new PrintWriter(fw2);
+				pw2.write(result);
+				pw2.close();
+
+				if(!(nameText.getText().isEmpty()) && !(phoneText.getText().isEmpty()) && emptySeats){
+					Random r=new Random();
+					int tID=1+r.nextInt(1000000);				
+					Customer cm1 =new Customer(name,phoneNumber,tID);
+					cm1.writeTickets(name, phoneNumber, tID, departuretext, arrivaltext, r1.getText(),Totalfee);
+				}
+			}
+			catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+
+
+	public class cancelButtonListener implements ActionListener{
+		public void actionPerformed (ActionEvent e){
+
+			File f=new File("Tickets.txt");
+			String result="";
+			boolean find=false;
+			try {
+				Scanner sd = new Scanner(f);
+				String x="";
+				while(sd.hasNextLine()){
+
+					x=sd.nextLine();
+					String [] line = x.split("\t");
+
+					if(!(ticketID.getText().isEmpty()) && ticketID.getText().equals(line[2])){
+						JOptionPane.showMessageDialog(null, "Cancellation is success ");
+						find=true;
+						continue;//This continue for delete the informations about canceling ticket
+					}
+
+					result += x+"\n";	
+				}
+
+				if(!find){
+					JOptionPane.showMessageDialog(null,"TicketID could not found!");
+				}
+
+				FileWriter fw2;
+				try {
+					fw2 = new FileWriter(f);
+					PrintWriter pw2=new PrintWriter(fw2);
+					pw2.write(result);
+					pw2.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
 
